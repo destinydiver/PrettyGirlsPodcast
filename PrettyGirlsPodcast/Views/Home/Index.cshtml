@@ -11,17 +11,17 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h2>Getting started</h2>
+        <h2>Pretty Girl Podcast Hosts</h2>
         <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
+            Pretty Girls hosts come from a varied background.  Each chosen for their intimate knowledge of their
+            chosen subject.  If you would be interested in becoming a guest host, please contact us.
         </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+        <p><a class="btn btn-default" @Html.ActionLink("Hosts", "Index", "Host")</a></p>
     </div>
     <div class="col-md-6">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+        <h2>Pretty Girls Past Podcasts</h2>
+        <p>Are podcasts are recorded and will be made available for retrieving and playing at your convenience
+            in the not too distant future.</p>
+        <p><a class="btn btn-default" @Html.ActionLink("Podcasts", "Index", "Podcast")</a></p>
     </div>
 </div>
