@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using PrettyGirlsPodcast.DAL;
 using PrettyGirlsPodcast.Models;
+using PrettyGirlsPodcast.ViewModels;
 
 namespace PrettyGirlsPodcast.Controllers
 {
@@ -39,7 +40,10 @@ namespace PrettyGirlsPodcast.Controllers
         // GET: Podcast/Create
         public ActionResult Create()
         {
-            return View();
+            PodcastViewModel model = new PodcastViewModel();
+            model.viewPodcast = new Podcast();
+            model.hostList = db.Hosts.ToList();
+            return View(model);
         }
 
         // POST: Podcast/Create
@@ -47,12 +51,25 @@ namespace PrettyGirlsPodcast.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Podcast_Id,Title,DateCasted,Description")] Podcast podcast)
+        public ActionResult Create(PodcastViewModel podcast)
         {
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
             {
-                db.Podcasts.Add(podcast);
+                //get the user selected id
+                int hostId = Convert.ToInt32(Request.Form["hostList"]);
+
+                //lookup host
+                Host selectedHost = db.Hosts.ToList().Find(x => x.Host_Id == hostId);
+
+                //assign the host to the submitted podcast
+                podcast.viewPodcast.PodcastHost = selectedHost;
+
+                //add the podcast to the db
+                db.Podcasts.Add(podcast.viewPodcast);
+
+                //save the podcast
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
